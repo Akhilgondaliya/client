@@ -29,6 +29,13 @@ export const Scan = () => {
     }
   }, [cameraStream])
 
+  // Bind camera stream to video element when it becomes active and is rendered
+  useEffect(() => {
+    if (isCameraActive && cameraStream && videoRef.current) {
+      videoRef.current.srcObject = cameraStream
+    }
+  }, [isCameraActive, cameraStream])
+
   // Camera stream activation
   const startCamera = async () => {
     try {
@@ -36,9 +43,6 @@ export const Scan = () => {
         video: { facingMode: 'environment', width: { ideal: 640 }, height: { ideal: 480 } }
       })
       setCameraStream(stream)
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream
-      }
       setIsCameraActive(true)
       toast.info('Camera active! Hold your QR code up to the lens.')
     } catch (err) {
