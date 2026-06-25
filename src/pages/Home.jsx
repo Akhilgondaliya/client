@@ -224,32 +224,32 @@ export const Home = () => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           <FeatureCard
-            title="🔗 URL Structure Scans"
+            title="URL Structure Scans"
             description="We read the URL structure to check if it's hiding something, like strange symbols, double slashes, or hidden redirects."
             icon={FiLink}
           />
           <FeatureCard
-            title="📷 QR Code Scanning"
+            title="QR Code Scanning"
             description="Easily verify QR codes from your screen, a file upload, or your live webcam to make sure they lead to where they claim."
             icon={FiCamera}
           />
           <FeatureCard
-            title="🔐 SSL Connection Audit"
+            title="SSL Connection Audit"
             description="We test the site's secure handshake connection, check who issued the certificate, and alert you if it is about to expire."
             icon={FiLock}
           />
           <FeatureCard
-            title="📅 Domain Age Lookup"
+            title="Domain Age Lookup"
             description="Brand-new domains are a common red flag. We query WHOIS registers to check when the site was created."
             icon={FiCalendar}
           />
           <FeatureCard
-            title="🎭 Brand Spoof Detection"
+            title="Brand Spoof Detection"
             description="Scammers love to clone sites like PayPal or Google. We instantly flag URLs trying to pass as popular platforms."
             icon={FiShield}
           />
           <FeatureCard
-            title="📄 PDF Report Creator"
+            title="PDF Report Creator"
             description="Save a clean, printable PDF report containing details of the threat signals to share with your friends or team."
             icon={FiFileText}
           />
