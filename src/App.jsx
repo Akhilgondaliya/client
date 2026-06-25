@@ -39,7 +39,7 @@ export const App = () => {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/demo" element={<Demo />} />
+            <Route path="/scan" element={<Demo />} />
             <Route path="/result" element={<Result />} />
             <Route path="/how-it-works" element={<HowItWorks />} />
             <Route path="/about" element={<About />} />

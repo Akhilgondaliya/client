@@ -12,11 +12,11 @@ export const Result = () => {
   const navigate = useNavigate()
   const scanResult = location.state?.scanResult
 
-  // Redirect to demo if no results are in history state
+  // Redirect to scan if no results are in history state
   useEffect(() => {
     if (!scanResult) {
       toast.error('No scan results found. Let\'s start a new scan first.')
-      navigate('/demo')
+      navigate('/scan')
     }
   }, [scanResult, navigate])
 
@@ -142,7 +142,7 @@ export const Result = () => {
             <span>Copy Summary</span>
           </button>
           <Link
-            to="/demo"
+            to="/scan"
             className="flex items-center space-x-2 px-4 py-2.5 rounded-xl border border-accent/40 hover:bg-accent/10 text-accent font-bold text-xs tracking-wider transition-colors cursor-pointer"
           >
             <FiRefreshCw className="w-4 h-4" />

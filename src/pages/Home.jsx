@@ -133,7 +133,7 @@ export const Home = () => {
             
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
               <Link
-                to="/demo"
+                to="/scan"
                 className="w-full sm:w-auto flex items-center justify-center space-x-2 px-8 py-4 rounded-xl bg-accent text-primary dark:text-primary font-extrabold text-sm tracking-wide shadow-lg shadow-accent/20 hover:bg-accent/80 hover:shadow-accent/30 hover:scale-105 active:scale-95 transition-all cursor-pointer"
                 id="hero-scan-cta"
               >
@@ -346,7 +346,7 @@ export const Home = () => {
           </p>
           <div className="pt-2">
             <Link
-              to="/demo"
+              to="/scan"
               className="inline-flex items-center space-x-2 px-8 py-4 rounded-xl bg-accent text-primary dark:text-primary font-extrabold text-sm tracking-wide hover:bg-accent/80 transition-all hover:scale-105 cursor-pointer"
               id="final-cta-btn"
             >

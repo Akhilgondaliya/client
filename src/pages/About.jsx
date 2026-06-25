@@ -57,7 +57,7 @@ export const About = () => {
               <span>GitHub Repository</span>
             </a>
             <a
-              href="/demo"
+              href="/scan"
               className="w-full sm:w-auto flex items-center justify-center space-x-2 px-5 py-2.5 rounded-xl border border-muted/30 hover:border-accent/40 bg-card text-muted hover:text-accent font-bold text-xs tracking-wider cursor-pointer transition-all"
             >
               <span>Scan a Link Now</span>

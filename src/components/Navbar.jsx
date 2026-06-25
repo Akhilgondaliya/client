@@ -28,7 +28,7 @@ export const Navbar = () => {
 
   const links = [
     { name: 'Home', path: '/' },
-    { name: 'Scan', path: '/demo' },
+    { name: 'Scan', path: '/scan' },
     { name: 'How It Works', path: '/how-it-works' },
     { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' }
@@ -83,7 +83,7 @@ export const Navbar = () => {
 
             {/* Action Call-to-Action */}
             <Link
-              to="/demo"
+              to="/scan"
               className="hidden lg:flex items-center space-x-1 px-4 py-2 rounded-xl bg-accent hover:bg-accent/80 text-primary font-extrabold text-xs tracking-wider transition-all shadow-md shadow-accent/20 hover:scale-105 active:scale-95 cursor-pointer ml-2"
             >
               <span>Try Now</span>
@@ -125,7 +125,7 @@ export const Navbar = () => {
             ))}
             
             <Link
-              to="/demo"
+              to="/scan"
               className="flex items-center justify-center space-x-1.5 py-3.5 px-4 rounded-xl bg-accent text-primary font-extrabold text-sm tracking-wider hover:bg-accent/80 transition-all text-center mt-4 shadow-lg shadow-accent/15"
             >
               <span>Try Now</span>
