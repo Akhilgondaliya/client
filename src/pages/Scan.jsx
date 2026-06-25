@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { toast } from 'react-toastify'
 import { FiLink, FiCamera, FiUploadCloud, FiSearch, FiVideo, FiVideoOff } from 'react-icons/fi'
 import { useScanUrlMutation, useScanQrMutation } from '../app/apiSlice'
+import jsQR from 'jsqr'
 import LoadingSpinner from '../components/LoadingSpinner'
 import SampleSection from '../components/SampleSection'
 
@@ -22,14 +23,62 @@ export const Scan = () => {
   const [scanUrl, { isLoading: isUrlScanning }] = useScanUrlMutation()
   const [scanQr, { isLoading: isQrScanning }] = useScanQrMutation()
 
+  const requestRef = useRef(null)
+
+  // Real-time camera QR decoding loop
+  const scanFrame = () => {
+    if (!videoRef.current || videoRef.current.readyState !== videoRef.current.HAVE_ENOUGH_DATA) {
+      requestRef.current = requestAnimationFrame(scanFrame)
+      return
+    }
+
+    try {
+      const canvas = document.createElement('canvas')
+      canvas.width = videoRef.current.videoWidth || 640
+      canvas.height = videoRef.current.videoHeight || 480
+      const ctx = canvas.getContext('2d')
+      ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height)
+      
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+      const code = jsQR(imageData.data, imageData.width, imageData.height, {
+        inversionAttempts: 'dontInvert',
+      })
+
+      if (code && code.data && code.data.trim()) {
+        const decodedUrl = code.data.trim()
+        stopCamera()
+        handleDecodedUrl(decodedUrl)
+        return // Stop looping
+      }
+    } catch (err) {
+      console.error("Frame scanning error:", err)
+    }
+
+    requestRef.current = requestAnimationFrame(scanFrame)
+  }
+
+  // Start real-time QR scanning loop when camera turns on
+  useEffect(() => {
+    if (isCameraActive && cameraStream) {
+      requestRef.current = requestAnimationFrame(scanFrame)
+    }
+    return () => {
+      if (requestRef.current) {
+        cancelAnimationFrame(requestRef.current)
+      }
+    }
+  }, [isCameraActive, cameraStream])
+
+
+
   // Clean up camera stream on unmount
   useEffect(() => {
     return () => {
-      stopCamera()
+      if (cameraStream) {
+        cameraStream.getTracks().forEach((track) => track.stop())
+      }
     }
   }, [cameraStream])
-
-
 
   // Camera stream activation
   const startCamera = async () => {
@@ -55,6 +104,30 @@ export const Scan = () => {
     setIsCameraActive(false)
   }
 
+  // Decode QR code content directly client-side and trigger API scan
+  const handleDecodedUrl = async (decodedUrl) => {
+    let formattedUrl = decodedUrl.trim()
+    
+    // Prepend protocol if missing
+    if (formattedUrl.toLowerCase().startsWith('http://')) {
+      formattedUrl = 'https://' + formattedUrl.slice(7)
+    } else if (!formattedUrl.toLowerCase().startsWith('https://')) {
+      formattedUrl = 'https://' + formattedUrl
+    }
+
+    toast.info(`Decoded QR: ${formattedUrl}`)
+    
+    try {
+      // Direct call to scan-url API with decoded URL, avoiding heavy multi-step server side zbar dependency
+      const data = await scanUrl({ url: formattedUrl }).unwrap()
+      toast.success('Website analyzed successfully!')
+      navigate('/result', { state: { scanResult: data } })
+    } catch (err) {
+      const errMsg = err.data?.error || 'Oops, our server had trouble checking this URL. Please try again.'
+      toast.error(errMsg)
+    }
+  }
+
   // Capture frame from webcam and submit
   const captureAndScan = () => {
     if (!videoRef.current) return
@@ -66,6 +139,16 @@ export const Scan = () => {
     const ctx = canvas.getContext('2d')
     ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height)
     
+    // Attempt instant client-side QR decode on capture
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+    const code = jsQR(imageData.data, imageData.width, imageData.height)
+    if (code && code.data && code.data.trim()) {
+      stopCamera()
+      handleDecodedUrl(code.data.trim())
+      return
+    }
+
+    // Fallback: send captured blob to backend if client-side check misses it
     canvas.toBlob(
       (blob) => {
         if (blob) {
@@ -143,9 +226,36 @@ export const Scan = () => {
       return
     }
 
-    const formData = new FormData()
-    formData.append('qr_image', qrFile)
-    handleQrScanSubmit(formData)
+    // Attempt client-side QR decode first for instant results
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      const img = new Image()
+      img.onload = () => {
+        const canvas = document.createElement('canvas')
+        canvas.width = img.width
+        canvas.height = img.height
+        const ctx = canvas.getContext('2d')
+        ctx.drawImage(img, 0, 0)
+        
+        try {
+          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+          const code = jsQR(imageData.data, imageData.width, imageData.height)
+          if (code && code.data && code.data.trim()) {
+            handleDecodedUrl(code.data.trim())
+            return
+          }
+        } catch (err) {
+          console.error("Client side upload decode error:", err)
+        }
+
+        // Fallback to server side scanning if client side fails to decode
+        const formData = new FormData()
+        formData.append('qr_image', qrFile)
+        handleQrScanSubmit(formData)
+      }
+      img.src = e.target.result
+    }
+    reader.readAsDataURL(qrFile)
   }
 
   // Unified QR scan logic
