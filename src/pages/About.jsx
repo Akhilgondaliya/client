@@ -4,12 +4,7 @@ import { FiShield, FiGithub, FiExternalLink, FiAward, FiMail } from 'react-icons
 
 export const About = () => {
   
-  const techBadges = [
-    'React.js', 'Vite', 'Tailwind CSS', 'RTK Query', 
-    'Framer Motion', 'React Icons', 'React Toastify', 
-    'Python', 'Flask', 'pyzbar', 'OpenCV', 
-    'python-whois', 'tldextract', 'ReportLab'
-  ]
+
 
   return (
     <div className="min-h-screen py-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
@@ -20,7 +15,7 @@ export const About = () => {
           About PhishZero
         </h1>
         <p className="text-sm text-muted max-w-xl mx-auto">
-          Why PhishZero was built, the technology behind it, and the developer who crafted it.
+          Why PhishZero was built and the developer who crafted it.
         </p>
       </div>
 
@@ -105,23 +100,7 @@ export const About = () => {
         </div>
       </section>
 
-      {/* Technology Stack Badges */}
-      <section className="space-y-4">
-        <div className="border-b border-muted/20 pb-3">
-          <h2 className="text-xl font-bold text-[#0d1b2a] dark:text-white">Technologies Used</h2>
-          <p className="text-xs text-muted">A full-stack setup combining clean frontend components and robust Python libraries.</p>
-        </div>
-        <div className="flex flex-wrap gap-2.5">
-          {techBadges.map((badge, idx) => (
-            <span
-              key={idx}
-              className="px-3.5 py-1.5 rounded-xl bg-card border border-muted/20 text-xs font-semibold text-muted hover:border-accent/40 hover:text-accent transition-all cursor-default"
-            >
-              {badge}
-            </span>
-          ))}
-        </div>
-      </section>
+
 
       {/* Academic Disclaimer footer block */}
       <div className="p-4 rounded-xl border border-muted/20 text-center bg-card/20 text-xs text-muted">
