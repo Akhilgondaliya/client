@@ -29,16 +29,7 @@ export const Scan = () => {
     }
   }, [cameraStream])
 
-  // Bind camera stream to video element when it becomes active and is rendered
-  useEffect(() => {
-    if (isCameraActive && cameraStream && videoRef.current) {
-      videoRef.current.srcObject = cameraStream
-      // Explicitly trigger play to bypass potential autoplay restriction policies on mobile/some desktop browsers
-      videoRef.current.play().catch(err => {
-        console.error("Failed to play video stream:", err)
-      })
-    }
-  }, [isCameraActive, cameraStream])
+
 
   // Camera stream activation
   const startCamera = async () => {
@@ -272,11 +263,19 @@ export const Scan = () => {
               {isCameraActive ? (
                 <div className="relative border border-accent/40 rounded-2xl overflow-hidden bg-black flex flex-col items-center">
                   <video
-                    ref={videoRef}
+                    ref={(el) => {
+                      videoRef.current = el
+                      if (el && cameraStream) {
+                        el.srcObject = cameraStream
+                        el.play().catch((err) => {
+                          console.error("Error playing video stream:", err)
+                        })
+                      }
+                    }}
                     autoPlay
                     playsInline
                     muted
-                    className="w-full max-h-[240px] object-cover"
+                    className="w-full h-[240px] object-cover bg-black"
                   />
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <div className="w-36 h-36 border-2 border-dashed border-accent/60 rounded-xl relative">
