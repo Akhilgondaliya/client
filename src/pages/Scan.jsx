@@ -33,6 +33,10 @@ export const Scan = () => {
   useEffect(() => {
     if (isCameraActive && cameraStream && videoRef.current) {
       videoRef.current.srcObject = cameraStream
+      // Explicitly trigger play to bypass potential autoplay restriction policies on mobile/some desktop browsers
+      videoRef.current.play().catch(err => {
+        console.error("Failed to play video stream:", err)
+      })
     }
   }, [isCameraActive, cameraStream])
 
@@ -271,6 +275,7 @@ export const Scan = () => {
                     ref={videoRef}
                     autoPlay
                     playsInline
+                    muted
                     className="w-full max-h-[240px] object-cover"
                   />
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
