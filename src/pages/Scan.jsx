@@ -454,8 +454,8 @@ export const Scan = () => {
           <span>Real-time Secure Sandbox Environment</span>
         </motion.div>
         
-        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-[#0d1b2a] via-[#1e3a8a] to-[#2563eb] dark:from-white dark:via-sky-400 dark:to-accent bg-clip-text text-transparent pb-1">
-          🔍 PhishZero Scanning Sandbox
+        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-[#0d1b2a] dark:text-white pb-1">
+          🔍 Phish<span className="text-accent">Zero</span> Scanning Sandbox
         </h1>
         
         <p className="text-sm sm:text-base text-muted leading-relaxed max-w-2xl mx-auto">
