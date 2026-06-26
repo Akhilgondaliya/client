@@ -8,6 +8,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollProgress from './components/ScrollProgress'
 import MarqueeBanner from './components/MarqueeBanner'
+import ScrollToTop from './components/ScrollToTop'
 
 import Home from './pages/Home'
 import Scan from './pages/Scan'
@@ -22,6 +23,7 @@ export const App = () => {
 
   return (
     <Router>
+      <ScrollToTop />
       {/* 
         Parent structural wrapper inheriting base background and text colors 
         configured dynamically in index.css based on dark class 
