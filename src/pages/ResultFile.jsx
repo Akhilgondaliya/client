@@ -89,6 +89,7 @@ export const ResultFile = () => {
   const qr_url = scanResult?.qr_url || null
   const extracted_urls = scanResult?.extracted_urls || []
   const url_scans = scanResult?.url_scans || []
+  const stego_payload = scanResult?.stego_payload || null
 
   // Formatter for file size
   const formatBytes = (bytes) => {
@@ -244,13 +245,29 @@ export const ResultFile = () => {
                 <div className="p-4 bg-primary/20 rounded-2xl border border-muted/10 space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-extrabold uppercase tracking-wide text-muted">Steganography & Appended Bytes</span>
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${extracted_urls.length > 0 ? 'bg-amber-500/10 text-amber-500' : 'bg-safe/10 text-safe'}`}>
-                      {extracted_urls.length > 0 ? 'Indicators Found' : 'Clean'}
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
+                      (extracted_urls.length > 0 || stego_payload) ? 'bg-amber-500/10 text-amber-500' : 'bg-safe/10 text-safe'
+                    }`}>
+                      {(extracted_urls.length > 0 || stego_payload) ? 'Indicators Found' : 'Clean'}
                     </span>
                   </div>
-                  <p className="text-xs text-muted leading-relaxed">
-                    We regex-scanned the raw binary image stream for trailing hidden/appended URLs (a technique frequently used to hide malicious domains in EXIF parameters or comment structures).
-                  </p>
+                  {stego_payload ? (
+                    <div className="mt-3 space-y-1.5">
+                      <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#0d1b2a] dark:text-white block">
+                        🔑 Decoded Stego Payload:
+                      </span>
+                      <p className="text-xs font-mono font-bold text-accent bg-black/45 p-3 rounded-xl border border-[#1f2937] break-all select-all shadow-inner leading-relaxed">
+                        {stego_payload}
+                      </p>
+                      <p className="text-[10px] text-muted">
+                        Successfully extracted Least Significant Bit (LSB) hidden text from pixel color channels.
+                      </p>
+                    </div>
+                  ) : (
+                    <p className="text-xs text-muted leading-relaxed">
+                      We scanned the image color channels for LSB steganography text payloads, and checked the raw binary file bytes for appended hidden URLs.
+                    </p>
+                  )}
                 </div>
               </div>
             </section>
