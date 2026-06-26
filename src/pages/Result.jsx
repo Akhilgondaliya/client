@@ -122,7 +122,7 @@ export const Result = () => {
       {/* Top action header bar */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-muted/20 pb-6">
         <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0d1b2a] dark:text-white">
-          🛡️ Website Security Breakdown
+          Website Security Breakdown
         </h1>
         <div className="flex flex-wrap items-center justify-center gap-3">
           <button
