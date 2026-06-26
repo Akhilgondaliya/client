@@ -1,5 +1,5 @@
 import React from 'react'
-import { FiMail, FiGithub, FiLinkedin, FiUser } from 'react-icons/fi'
+import { FiMail, FiGithub, FiLinkedin, FiUser, FiMapPin } from 'react-icons/fi'
 import { FaGraduationCap } from 'react-icons/fa'
 
 export const Contact = () => {
@@ -40,6 +40,14 @@ export const Contact = () => {
               <div className="space-y-0.5">
                 <span className="font-bold text-[#0d1b2a] dark:text-white block">College</span>
                 <span>Dr. S. & S.S. Ghandhy College of Engg. & Tech.</span>
+              </div>
+            </div>
+
+            <div className="flex items-start space-x-3 text-muted">
+              <FiMapPin className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
+              <div className="space-y-0.5">
+                <span className="font-bold text-[#0d1b2a] dark:text-white block">Location</span>
+                <span>Surat, Gujarat</span>
               </div>
             </div>
 
