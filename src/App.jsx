@@ -8,7 +8,7 @@ import { ThemeContext } from './context/ThemeContext'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollProgress from './components/ScrollProgress'
-import MarqueeBanner from './components/MarqueeBanner'
+import GlobalThreatIndicator from './components/GlobalThreatIndicator'
 import ScrollToTop from './components/ScrollToTop'
 import PageTransition from './components/PageTransition'
 
@@ -38,8 +38,8 @@ const AppContent = () => {
       {/* Global Navigation header */}
       <Navbar />
 
-      {/* Infinite statistics marquee banner */}
-      <MarqueeBanner />
+      {/* Pulsing real-time global threat status indicator */}
+      <GlobalThreatIndicator />
 
       {/* Dynamic Route Pages Container */}
       <main className="flex-grow relative z-10">
