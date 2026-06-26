@@ -29,6 +29,7 @@ export const Navbar = () => {
   const links = [
     { name: 'Home', path: '/' },
     { name: 'Scan', path: '/scan' },
+    { name: 'Vulnerability Quiz', path: '/quiz' },
     { name: 'How It Works', path: '/how-it-works' },
     { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' }

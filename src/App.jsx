@@ -18,6 +18,7 @@ import ResultFile from './pages/ResultFile'
 import HowItWorks from './pages/HowItWorks'
 import About from './pages/About'
 import Contact from './pages/Contact'
+import Quiz from './pages/Quiz'
 
 export const App = () => {
   const { theme } = useContext(ThemeContext)
@@ -50,6 +51,7 @@ export const App = () => {
             <Route path="/how-it-works" element={<HowItWorks />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/quiz" element={<Quiz />} />
           </Routes>
         </main>
 

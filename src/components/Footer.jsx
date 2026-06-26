@@ -69,6 +69,7 @@ export const Footer = () => {
         <div className="mt-8 pt-8 border-t border-muted/10 flex flex-col sm:flex-row items-center justify-between text-xs text-muted">
           <p>&copy; {new Date().getFullYear()} PhishZero. Educational Purpose Only.</p>
           <div className="flex space-x-6 mt-4 sm:mt-0">
+            <Link to="/quiz" className="hover:text-accent transition-colors">Vulnerability Quiz</Link>
             <Link to="/about" className="hover:text-accent transition-colors">About Project</Link>
             <Link to="/how-it-works" className="hover:text-accent transition-colors">Documentation</Link>
             <Link to="/contact" className="hover:text-accent transition-colors">Contact</Link>
