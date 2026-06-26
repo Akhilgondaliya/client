@@ -26,6 +26,18 @@ export const Navbar = () => {
     setIsOpen(false)
   }, [location])
 
+  // Toggle class on body to hide marquee banner when menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('mobile-menu-open')
+    } else {
+      document.body.classList.remove('mobile-menu-open')
+    }
+    return () => {
+      document.body.classList.remove('mobile-menu-open')
+    }
+  }, [isOpen])
+
   const links = [
     { name: 'Home', path: '/' },
     { name: 'Scan', path: '/scan' },
