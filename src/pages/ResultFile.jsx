@@ -79,14 +79,24 @@ export const ResultFile = () => {
     )
   }
 
-  const { filename, filesize, filetype, score, verdict, permissions = [], high_risk_permissions = [], qr_url, extracted_urls = [], url_scans = [] } = scanResult
+  const filename = scanResult?.filename || 'Unknown File'
+  const filesize = scanResult?.filesize || 0
+  const filetype = scanResult?.filetype || 'unknown'
+  const score = scanResult?.score || 0
+  const verdict = scanResult?.verdict || 'Safe'
+  const permissions = scanResult?.permissions || []
+  const high_risk_permissions = scanResult?.high_risk_permissions || []
+  const qr_url = scanResult?.qr_url || null
+  const extracted_urls = scanResult?.extracted_urls || []
+  const url_scans = scanResult?.url_scans || []
 
   // Formatter for file size
   const formatBytes = (bytes) => {
-    if (bytes === 0) return '0 Bytes'
+    if (!bytes || isNaN(bytes) || bytes === 0) return '0 Bytes'
     const k = 1024
     const sizes = ['Bytes', 'KB', 'MB', 'GB']
     const i = Math.floor(Math.log(bytes) / Math.log(k))
+    if (i < 0 || i >= sizes.length) return bytes + ' Bytes'
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
   }
 
@@ -326,27 +336,27 @@ export const ResultFile = () => {
               <div className="space-y-4">
                 {url_scans.map((scan, idx) => {
                   let vColor = 'text-safe bg-safe/10 border-safe/20'
-                  if (scan.verdict === 'Phishing') vColor = 'text-phishing bg-phishing/10 border-phishing/20'
-                  else if (scan.verdict === 'Suspicious') vColor = 'text-suspicious bg-suspicious/10 border-suspicious/20'
+                  if (scan?.verdict === 'Phishing') vColor = 'text-phishing bg-phishing/10 border-phishing/20'
+                  else if (scan?.verdict === 'Suspicious') vColor = 'text-suspicious bg-suspicious/10 border-suspicious/20'
 
                   return (
                     <div key={idx} className="p-4 bg-primary/20 rounded-2xl border border-muted/10 space-y-3">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-muted/5 pb-2">
-                        <span className="text-xs font-bold font-mono text-accent truncate max-w-[320px] sm:max-w-[420px]" title={scan.url}>
-                          {scan.url}
+                        <span className="text-xs font-bold font-mono text-accent truncate max-w-[320px] sm:max-w-[420px]" title={scan?.url || ''}>
+                          {scan?.url || 'Unknown URL'}
                         </span>
                         <div className="flex items-center space-x-2">
                           <span className={`text-[10px] font-bold px-2 py-0.5 rounded border uppercase ${vColor}`}>
-                            {scan.verdict}
+                            {scan?.verdict || 'Unknown'}
                           </span>
                           <span className="text-xs font-bold font-mono text-muted">
-                            Score: {scan.score}/100
+                            Score: {scan?.score || 0}/100
                           </span>
                         </div>
                       </div>
 
                       {/* Signals triggers list */}
-                      {scan.results && scan.results.length > 0 ? (
+                      {scan?.results && scan.results.length > 0 ? (
                         <div className="space-y-1.5">
                           <span className="text-[10px] font-extrabold uppercase tracking-wider text-muted flex items-center space-x-1">
                             <FiActivity className="w-3 h-3" />
@@ -357,9 +367,9 @@ export const ResultFile = () => {
                               <span
                                 key={sIdx}
                                 className="px-2 py-0.5 rounded bg-phishing/5 border border-phishing/15 text-phishing text-[10px]"
-                                title={sig.desc || sig.description}
+                                title={sig?.desc || sig?.description || ''}
                               >
-                                {sig.title || sig.name}
+                                {sig?.title || sig?.name || 'Triggered check'}
                               </span>
                             ))}
                           </div>
