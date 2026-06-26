@@ -2,11 +2,10 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { toast } from 'react-toastify'
-import { FiLink, FiCamera, FiUploadCloud, FiSearch, FiVideo, FiVideoOff, FiMail, FiFileText } from 'react-icons/fi'
+import { FiLink, FiCamera, FiUploadCloud, FiSearch, FiVideo, FiVideoOff, FiMail, FiFileText, FiDownload, FiInfo } from 'react-icons/fi'
 import { useScanUrlMutation, useScanQrMutation, useScanMailMutation, useScanFileMutation } from '../app/apiSlice'
 import jsQR from 'jsqr'
 import LoadingSpinner from '../components/LoadingSpinner'
-import SampleSection from '../components/SampleSection'
 
 export const Scan = () => {
   const navigate = useNavigate()
@@ -423,12 +422,6 @@ export const Scan = () => {
     }
   }
 
-  // Fills URL input from Sample section
-  const handleSelectSampleUrl = (url) => {
-    setUrlInput(url)
-    setActiveTab('url')
-    toast.info('Loaded sample link! Click "Scan website" to run the test.')
-  }
 
   return (
     <div className="min-h-screen py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
@@ -547,6 +540,44 @@ export const Scan = () => {
                 <span>Scan Link Now</span>
               </button>
             </form>
+
+            <div className="border-t border-muted/10 pt-5 space-y-3">
+              <div className="flex items-center space-x-2">
+                <FiInfo className="w-4 h-4 text-accent" />
+                <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#0d1b2a] dark:text-white">
+                  🧪 Try a Sample URL
+                </span>
+              </div>
+              <p className="text-xs text-muted leading-relaxed">
+                Load a pre-configured mock testing domain to check how the sandbox processes DNS and security analysis.
+              </p>
+              <div className="flex flex-wrap gap-2.5 pt-1">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setUrlInput('http://paypal-secure-login.verify-account.tk')
+                    toast.info('Loaded phishing sample URL! Click "Scan Link Now" to test.')
+                  }}
+                  className="flex items-center space-x-1.5 px-3 py-2 rounded-lg border border-phishing/30 bg-phishing/5 hover:bg-phishing/10 text-phishing font-bold text-xs tracking-wider transition-all cursor-pointer"
+                  id="try-phishing-url-btn"
+                >
+                  <FiLink className="w-3.5 h-3.5" />
+                  <span>Phishing URL</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setUrlInput('https://google.com')
+                    toast.info('Loaded safe sample URL! Click "Scan Link Now" to test.')
+                  }}
+                  className="flex items-center space-x-1.5 px-3 py-2 rounded-lg border border-safe/30 bg-safe/5 hover:bg-safe/10 text-safe font-bold text-xs tracking-wider transition-all cursor-pointer"
+                  id="try-safe-url-btn"
+                >
+                  <FiLink className="w-3.5 h-3.5" />
+                  <span>Safe URL</span>
+                </button>
+              </div>
+            </div>
           </motion.div>
         )}
 
@@ -686,6 +717,45 @@ export const Scan = () => {
                 <span>Decode & Scan QR file</span>
               </button>
             </div>
+
+            <div className="border-t border-muted/10 pt-5 space-y-4">
+              <div className="flex items-center space-x-2">
+                <FiInfo className="w-4 h-4 text-accent" />
+                <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#0d1b2a] dark:text-white">
+                  🧪 Download Sample QR
+                </span>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row items-center gap-4 p-4 bg-primary/20 dark:bg-card/30 backdrop-blur-sm rounded-2xl border border-muted/15 dark:border-accent/5">
+                <div className="flex flex-col items-center space-y-1 flex-shrink-0">
+                  <img
+                    src={`${import.meta.env.VITE_API_URL || ''}/api/sample-qr`}
+                    alt="Sample Phishing QR Code"
+                    className="w-20 h-20 rounded-lg bg-white p-1 border border-muted/20"
+                    onError={(e) => {
+                      e.target.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 100 100"><rect width="100%" height="100%" fill="%23f7fafc"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="10" fill="%23a0aec0">Sample QR</text></svg>'
+                    }}
+                  />
+                  <span className="text-[9px] text-muted font-bold">QR Preview</span>
+                </div>
+
+                <div className="flex-1 space-y-1 text-center sm:text-left">
+                  <h4 className="text-xs font-bold text-[#0d1b2a] dark:text-white">Sample Phishing QR Code</h4>
+                  <p className="text-[11px] text-muted leading-relaxed">
+                    This QR image resolves to the mock phishing domain. Download and drop it into the upload box above, or scan it with your camera.
+                  </p>
+                  <a
+                    href={`${import.meta.env.VITE_API_URL || ''}/api/sample-qr`}
+                    download="sample_phishing_qr.png"
+                    className="inline-flex items-center space-x-1.5 text-xs font-bold text-accent hover:text-accent/80 transition-colors pt-1 cursor-pointer"
+                    id="download-sample-qr-btn"
+                  >
+                    <FiDownload className="w-3.5 h-3.5" />
+                    <span>Download QR Image</span>
+                  </a>
+                </div>
+              </div>
+            </div>
           </motion.div>
         )}
 
@@ -761,6 +831,48 @@ export const Scan = () => {
                 <span>Analyze Email Security</span>
               </button>
             </form>
+
+            <div className="border-t border-muted/10 pt-5 space-y-3">
+              <div className="flex items-center space-x-2">
+                <FiInfo className="w-4 h-4 text-accent" />
+                <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#0d1b2a] dark:text-white">
+                  🧪 Fill Mock Email Templates
+                </span>
+              </div>
+              <p className="text-xs text-muted leading-relaxed">
+                Automatically fill the form inputs with threat diagnostic scenarios to evaluate linguistic markers and domain reputation checks.
+              </p>
+              <div className="flex flex-wrap gap-2.5 pt-1">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMailSender('billing-update@paypal-support-security.com')
+                    setMailSubject('URGENT: Review suspicious activity on your account')
+                    setMailBody('Dear customer,\n\nWe detected unauthorized login attempts to your account. To prevent permanent suspension, you must verify your identity immediately.\n\nPlease visit the secure portal below to restore access:\nhttp://paypal-secure-login.verify-account.tk/login\n\nIf you do not complete this within 24 hours, your account will be locked.\n\nSincerely,\nSecurity & Fraud Prevention Team')
+                    toast.info('Phishing email template filled! Click "Analyze Email Security" to run.')
+                  }}
+                  className="flex items-center space-x-1.5 px-3 py-2 rounded-lg border border-phishing/30 bg-phishing/5 hover:bg-phishing/10 text-phishing font-bold text-xs tracking-wider transition-all cursor-pointer"
+                  id="try-phishing-email-btn"
+                >
+                  <FiMail className="w-3.5 h-3.5" />
+                  <span>Phishing Email</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMailSender('newsletter@github.com')
+                    setMailSubject('Your GitHub weekly digest')
+                    setMailBody('Hi developer,\n\nHere are some trending repositories this week that you might find interesting.\n\n1. react-query - Performant state management for React\n2. tailwindcss - A utility-first CSS framework\n\nYou are receiving this email because you subscribed to weekly updates from GitHub.\n\nGitHub, Inc. 88 Colin P Kelly Jr St, San Francisco, CA 94107')
+                    toast.info('Safe email template filled! Click "Analyze Email Security" to run.')
+                  }}
+                  className="flex items-center space-x-1.5 px-3 py-2 rounded-lg border border-safe/30 bg-safe/5 hover:bg-safe/10 text-safe font-bold text-xs tracking-wider transition-all cursor-pointer"
+                  id="try-safe-email-btn"
+                >
+                  <FiMail className="w-3.5 h-3.5" />
+                  <span>Safe Email</span>
+                </button>
+              </div>
+            </div>
           </motion.div>
         )}
 
@@ -829,6 +941,29 @@ export const Scan = () => {
                 <span>Upload & Scan Image</span>
               </button>
             </form>
+
+            <div className="border-t border-muted/10 pt-5 space-y-3">
+              <div className="flex items-center space-x-2">
+                <FiInfo className="w-4 h-4 text-accent" />
+                <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#0d1b2a] dark:text-white">
+                  🧪 Download Stego PNG Sample
+                </span>
+              </div>
+              <p className="text-xs text-muted leading-relaxed">
+                Download a custom-built PNG steganography file. This image contains a concealed phishing link appended to the end of its raw file bytes to demonstrate signature detection.
+              </p>
+              <div className="pt-1">
+                <a
+                  href={`${import.meta.env.VITE_API_URL || ''}/api/sample-image`}
+                  download="sample_stego.png"
+                  className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl border border-accent/30 bg-accent/5 hover:bg-accent/15 text-accent font-bold text-xs tracking-wider transition-all cursor-pointer"
+                  id="download-stego-image-btn"
+                >
+                  <FiDownload className="w-4.5 h-4.5" />
+                  <span>Download Stego PNG</span>
+                </a>
+              </div>
+            </div>
           </motion.div>
         )}
 
@@ -897,14 +1032,33 @@ export const Scan = () => {
                 <span>Upload & Scan APK</span>
               </button>
             </form>
+
+            <div className="border-t border-muted/10 pt-5 space-y-3">
+              <div className="flex items-center space-x-2">
+                <FiInfo className="w-4.5 h-4.5 text-accent" />
+                <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#0d1b2a] dark:text-white">
+                  🧪 Download Phish APK Sample
+                </span>
+              </div>
+              <p className="text-xs text-muted leading-relaxed">
+                Download a mock APK package. This archive contains an Android manifest requesting high-risk SMS permissions and includes a compiled class file with embedded malicious URL signatures.
+              </p>
+              <div className="pt-1">
+                <a
+                  href={`${import.meta.env.VITE_API_URL || ''}/api/sample-apk`}
+                  download="sample_phish.apk"
+                  className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl border border-accent/30 bg-accent/5 hover:bg-accent/15 text-accent font-bold text-xs tracking-wider transition-all cursor-pointer"
+                  id="download-sample-apk-btn"
+                >
+                  <FiDownload className="w-4.5 h-4.5" />
+                  <span>Download Phish APK</span>
+                </a>
+              </div>
+            </div>
           </motion.div>
         )}
 
       </div>
-
-      {/* Try a Sample section */}
-      <SampleSection onSelectUrl={handleSelectSampleUrl} />
-
     </div>
   )
 }
