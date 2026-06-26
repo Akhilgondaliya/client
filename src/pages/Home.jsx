@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { FiShield, FiLink, FiCamera, FiLock, FiCalendar, FiFileText, FiArrowRight, FiMail, FiCpu, FiImage } from 'react-icons/fi'
+import { FiShield, FiLink, FiCamera, FiLock, FiCalendar, FiFileText, FiArrowRight, FiMail, FiCpu, FiImage, FiClock } from 'react-icons/fi'
 import FeatureCard from '../components/FeatureCard'
 
 // Helper component for counting numbers up on load
@@ -288,24 +288,30 @@ export const Home = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           
-          <div className="p-8 bg-card/65 dark:bg-card/45 backdrop-blur-md border border-muted/20 dark:border-muted/10 rounded-3xl space-y-3 relative hover:scale-[1.03] hover:-translate-y-1 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300">
-            <span className="text-5xl">📧</span>
+          <div className="p-8 bg-card/65 dark:bg-card/45 backdrop-blur-md border border-muted/20 dark:border-muted/10 rounded-3xl space-y-4 relative hover:scale-[1.03] hover:-translate-y-1 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300">
+            <div className="p-3.5 rounded-2xl bg-accent/10 border border-accent/20 w-max text-accent">
+              <FiMail className="w-8 h-8" />
+            </div>
             <h3 className="text-xl font-extrabold text-[#0d1b2a] dark:text-white">They Land in Your Inbox</h3>
             <p className="text-xs text-muted leading-relaxed font-semibold">
               Standard email filters miss a huge portion of phishing links. Statistically, 1 out of every 99 emails delivered contains a malicious target link.
             </p>
           </div>
 
-          <div className="p-8 bg-card/65 dark:bg-card/45 backdrop-blur-md border border-muted/20 dark:border-muted/10 rounded-3xl space-y-3 relative hover:scale-[1.03] hover:-translate-y-1 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300">
-            <span className="text-5xl">📷</span>
+          <div className="p-8 bg-card/65 dark:bg-card/45 backdrop-blur-md border border-muted/20 dark:border-muted/10 rounded-3xl space-y-4 relative hover:scale-[1.03] hover:-translate-y-1 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300">
+            <div className="p-3.5 rounded-2xl bg-accent/10 border border-accent/20 w-max text-accent">
+              <FiCamera className="w-8 h-8" />
+            </div>
             <h3 className="text-xl font-extrabold text-[#0d1b2a] dark:text-white">QR Codes Are the New Target</h3>
             <p className="text-xs text-muted leading-relaxed font-semibold">
               Scammers love QR codes because filters can't read links inside images. QR phishing (also known as quishing) has grown by 587% recently.
             </p>
           </div>
 
-          <div className="p-8 bg-card/65 dark:bg-card/45 backdrop-blur-md border border-muted/20 dark:border-muted/10 rounded-3xl space-y-3 relative hover:scale-[1.03] hover:-translate-y-1 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300">
-            <span className="text-5xl">⌛</span>
+          <div className="p-8 bg-card/65 dark:bg-card/45 backdrop-blur-md border border-muted/20 dark:border-muted/10 rounded-3xl space-y-4 relative hover:scale-[1.03] hover:-translate-y-1 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300">
+            <div className="p-3.5 rounded-2xl bg-accent/10 border border-accent/20 w-max text-accent">
+              <FiClock className="w-8 h-8" />
+            </div>
             <h3 className="text-xl font-extrabold text-[#0d1b2a] dark:text-white">They Vanish Quickly</h3>
             <p className="text-xs text-muted leading-relaxed font-semibold">
               The average phishing page stays online for less than 5 hours to avoid security blocks. Static database blacklists just can't keep up.
