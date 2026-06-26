@@ -431,7 +431,7 @@ export const Scan = () => {
   }
 
   return (
-    <div className="min-h-screen py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <div className="min-h-screen py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
       
       {/* Loading Spinners */}
       {(isUrlScanning || isQrScanning || isMailScanning || isFileScanning) && (
@@ -443,82 +443,60 @@ export const Scan = () => {
         } />
       )}
 
-      {/* Header title */}
-      <div className="text-center space-y-3">
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0d1b2a] dark:text-white">
+      {/* Premium Hero Title and glowing badge */}
+      <div className="text-center space-y-4 max-w-3xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-accent/15 border border-accent/30 text-accent font-extrabold text-[10px] uppercase tracking-widest shadow-sm shadow-accent/5"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-accent animate-ping" />
+          <span>Real-time Secure Sandbox Environment</span>
+        </motion.div>
+        
+        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-[#0d1b2a] via-[#1e3a8a] to-[#2563eb] dark:from-white dark:via-sky-400 dark:to-accent bg-clip-text text-transparent pb-1">
           🔍 PhishZero Scanning Sandbox
         </h1>
-        <p className="text-sm text-muted max-w-xl mx-auto leading-relaxed">
-          Paste a website link, upload/scan a QR code, or paste suspicious email contents to perform a real-time security audit.
+        
+        <p className="text-sm sm:text-base text-muted leading-relaxed max-w-2xl mx-auto">
+          Audit suspicious websites, parse hidden QR vectors, run email spoofing diagnostics, or sandbox APK binaries & images inside our threat defense console.
         </p>
       </div>
 
-      {/* Tab Navigation Menu */}
-      <div className="flex justify-center border-b border-muted/10 max-w-3xl mx-auto flex-wrap">
-        <button
-          onClick={() => {
-            stopCamera()
-            setActiveTab('url')
-          }}
-          className={`flex items-center space-x-2 px-6 py-3 border-b-2 text-sm font-extrabold tracking-wide transition-all cursor-pointer ${
-            activeTab === 'url' ? 'border-accent text-accent' : 'border-transparent text-muted hover:text-[#0d1b2a] dark:hover:text-white'
-          }`}
-          id="url-tab-btn"
-        >
-          <FiLink className="w-4 h-4" />
-          <span>Website URL</span>
-        </button>
-        <button
-          onClick={() => {
-            setActiveTab('qr')
-          }}
-          className={`flex items-center space-x-2 px-6 py-3 border-b-2 text-sm font-extrabold tracking-wide transition-all cursor-pointer ${
-            activeTab === 'qr' ? 'border-accent text-accent' : 'border-transparent text-muted hover:text-[#0d1b2a] dark:hover:text-white'
-          }`}
-          id="qr-tab-btn"
-        >
-          <FiCamera className="w-4 h-4" />
-          <span>QR Code</span>
-        </button>
-        <button
-          onClick={() => {
-            stopCamera()
-            setActiveTab('email')
-          }}
-          className={`flex items-center space-x-2 px-6 py-3 border-b-2 text-sm font-extrabold tracking-wide transition-all cursor-pointer ${
-            activeTab === 'email' ? 'border-accent text-accent' : 'border-transparent text-muted hover:text-[#0d1b2a] dark:hover:text-white'
-          }`}
-          id="email-tab-btn"
-        >
-          <FiMail className="w-4 h-4" />
-          <span>Email Sandbox</span>
-        </button>
-        <button
-          onClick={() => {
-            stopCamera()
-            setActiveTab('image')
-          }}
-          className={`flex items-center space-x-2 px-6 py-3 border-b-2 text-sm font-extrabold tracking-wide transition-all cursor-pointer ${
-            activeTab === 'image' ? 'border-accent text-accent' : 'border-transparent text-muted hover:text-[#0d1b2a] dark:hover:text-white'
-          }`}
-          id="image-tab-btn"
-        >
-          <FiCamera className="w-4 h-4" />
-          <span>Image Threat</span>
-        </button>
-        <button
-          onClick={() => {
-            stopCamera()
-            setActiveTab('apk')
-          }}
-          className={`flex items-center space-x-2 px-6 py-3 border-b-2 text-sm font-extrabold tracking-wide transition-all cursor-pointer ${
-            activeTab === 'apk' ? 'border-accent text-accent' : 'border-transparent text-muted hover:text-[#0d1b2a] dark:hover:text-white'
-          }`}
-          id="apk-tab-btn"
-        >
-          <FiFileText className="w-4 h-4" />
-          <span>APK Sandbox</span>
-        </button>
+      {/* Tab Navigation Menu (Segmented capsule list) */}
+      <div className="relative max-w-4xl mx-auto p-1.5 bg-primary/20 backdrop-blur-md rounded-2xl border border-muted/10 shadow-lg flex flex-wrap justify-between items-center gap-1 sm:gap-2">
+        {[
+          { id: 'url', label: 'Website URL', icon: <FiLink className="w-4 h-4" /> },
+          { id: 'qr', label: 'QR Code', icon: <FiCamera className="w-4 h-4" /> },
+          { id: 'email', label: 'Email Sandbox', icon: <FiMail className="w-4 h-4" /> },
+          { id: 'image', label: 'Image Threat', icon: <FiCamera className="w-4 h-4" /> },
+          { id: 'apk', label: 'APK Sandbox', icon: <FiFileText className="w-4 h-4" /> }
+        ].map((tab) => {
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => {
+                stopCamera()
+                setActiveTab(tab.id)
+              }}
+              className={`relative flex-1 min-w-[125px] flex items-center justify-center space-x-2 py-3 px-4 text-xs font-extrabold tracking-wide transition-all duration-300 rounded-xl cursor-pointer ${
+                isActive ? 'text-primary dark:text-primary z-10' : 'text-muted hover:text-[#0d1b2a] dark:hover:text-white'
+              }`}
+              id={`${tab.id}-tab-btn`}
+            >
+              {isActive && (
+                <motion.div
+                  layoutId="activeTabIndicator"
+                  className="absolute inset-0 bg-accent rounded-xl shadow-lg shadow-accent/15 z-[-1]"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
+              )}
+              {tab.icon}
+              <span>{tab.label}</span>
+            </button>
+          )
+        })}
       </div>
 
       {/* Active Tab Panel */}
@@ -526,15 +504,27 @@ export const Scan = () => {
         
         {/* Tab 1: URL Scan */}
         {activeTab === 'url' && (
-          <section className="bg-card dark:bg-card border border-muted/20 rounded-3xl p-6 sm:p-8 space-y-6 shadow-md">
+          <motion.div
+            initial={{ opacity: 0, y: 15, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.35 }}
+            className="bg-card dark:bg-card/45 backdrop-blur-xl border border-muted/20 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 w-48 h-48 bg-accent/5 rounded-full filter blur-3xl pointer-events-none" />
+            
             <div className="flex items-center space-x-3 text-accent border-b border-muted/5 pb-4">
-              <FiLink className="w-6 h-6" />
-              <h2 className="text-xl font-bold text-[#0d1b2a] dark:text-white">Scan a Website Link</h2>
+              <div className="p-2.5 bg-accent/10 rounded-xl text-accent">
+                <FiLink className="w-5 h-5" />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-[#0d1b2a] dark:text-white">Scan a Website Link</h2>
+                <p className="text-xs text-muted">Audits DNS structure, registry age, and lexical redirects.</p>
+              </div>
             </div>
             
             <form onSubmit={handleUrlScanSubmit} className="space-y-4">
-              <div className="space-y-1">
-                <label htmlFor="url-scan-input" className="text-xs font-extrabold uppercase tracking-wide text-muted">
+              <div className="space-y-2.5">
+                <label htmlFor="url-scan-input" className="text-[10px] font-extrabold uppercase tracking-widest text-muted block">
                   🔗 Paste website URL
                 </label>
                 <input
@@ -543,37 +533,48 @@ export const Scan = () => {
                   placeholder="e.g. login-secure-paypal.com/verify"
                   value={urlInput}
                   onChange={(e) => setUrlInput(e.target.value)}
-                  className="w-full bg-primary/30 border border-muted/30 focus:border-accent rounded-xl px-4 py-3.5 text-sm text-[#0d1b2a] dark:text-white placeholder-muted/50 focus:outline-none transition-colors"
+                  className="w-full bg-primary/30 hover:bg-primary/45 border border-muted/30 focus:border-accent focus:ring-2 focus:ring-accent/10 rounded-xl px-4 py-3.5 text-sm text-[#0d1b2a] dark:text-white placeholder-muted/50 focus:outline-none transition-all"
                 />
-                <p className="text-[10px] text-muted mt-1">We will add http:// or https:// automatically if you forget it.</p>
+                <p className="text-[10px] text-muted leading-normal">Our system normalizes URL schemes automatically (e.g. adding https:// if missing).</p>
               </div>
               
               <button
                 type="submit"
-                className="w-full flex items-center justify-center space-x-2 py-3 px-4 rounded-xl bg-accent text-primary dark:text-primary font-bold text-sm tracking-wide hover:bg-accent/80 transition-colors shadow-lg shadow-accent/10 cursor-pointer"
+                className="w-full flex items-center justify-center space-x-2 py-3.5 px-4 rounded-xl bg-accent text-primary dark:text-primary font-extrabold text-sm tracking-wide hover:bg-accent/80 transition-all shadow-lg hover:shadow-accent/15 cursor-pointer mt-2"
                 id="scan-url-btn"
               >
-                <FiSearch className="w-4 h-4 font-bold" />
-                <span>Scan website</span>
+                <FiSearch className="w-4.5 h-4.5 font-bold" />
+                <span>Scan Link Now</span>
               </button>
             </form>
-          </section>
+          </motion.div>
         )}
 
         {/* Tab 2: QR Scanner */}
         {activeTab === 'qr' && (
-          <section className="bg-card dark:bg-card border border-muted/20 rounded-3xl p-6 sm:p-8 space-y-6 shadow-md">
+          <motion.div
+            initial={{ opacity: 0, y: 15, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.35 }}
+            className="bg-card dark:bg-card/45 backdrop-blur-xl border border-muted/20 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 w-48 h-48 bg-accent/5 rounded-full filter blur-3xl pointer-events-none" />
+            
             <div className="flex items-center space-x-3 text-accent border-b border-muted/5 pb-4">
-              <FiCamera className="w-6 h-6" />
-              <h2 className="text-xl font-bold text-[#0d1b2a] dark:text-white">Scan a QR Code</h2>
+              <div className="p-2.5 bg-accent/10 rounded-xl text-accent">
+                <FiCamera className="w-5 h-5" />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-[#0d1b2a] dark:text-white">QR Code Decoder</h2>
+                <p className="text-xs text-muted">Checks behind physical QR code redirects to prevent quishing.</p>
+              </div>
             </div>
 
             <div className="space-y-5">
-              
               {/* Camera Scanner */}
               <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-extrabold uppercase tracking-wide text-muted">📷 Live Camera Scanner</span>
+                <div className="flex items-center justify-between mb-2.5">
+                  <span className="text-[10px] font-extrabold uppercase tracking-widest text-muted">📷 Live Camera Scanner</span>
                   <button
                     onClick={() => (isCameraActive ? stopCamera() : startCamera())}
                     className={`inline-flex items-center space-x-1.5 text-xs font-bold px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${
@@ -644,14 +645,14 @@ export const Scan = () => {
 
               {/* Drag and Drop Box */}
               <div className="space-y-2">
-                <label className="text-xs font-extrabold uppercase tracking-wide text-muted">
+                <label className="text-[10px] font-extrabold uppercase tracking-widest text-muted">
                   📷 Upload QR Image file
                 </label>
                 <div
                   onDragOver={handleDragOver}
                   onDrop={handleDrop}
                   onClick={() => fileInputRef.current?.click()}
-                  className="border-2 border-dashed border-muted/30 hover:border-accent/40 rounded-2xl p-6 flex flex-col items-center justify-center text-center cursor-pointer bg-primary/10 transition-colors"
+                  className="border-2 border-dashed border-muted/30 hover:border-accent/40 rounded-2xl p-8 flex flex-col items-center justify-center text-center cursor-pointer bg-primary/10 hover:bg-primary/20 transition-all"
                   id="qr-dropzone"
                 >
                   <input
@@ -661,7 +662,7 @@ export const Scan = () => {
                     onChange={handleFileChange}
                     className="hidden"
                   />
-                  <FiUploadCloud className="w-10 h-10 text-muted mb-2 group-hover:text-accent" />
+                  <FiUploadCloud className="w-10 h-10 text-muted mb-2 transition-transform duration-300 hover:scale-105" />
                   <p className="text-xs font-semibold text-muted">
                     Drag & drop your QR image here, or <span className="text-accent underline">browse</span>
                   </p>
@@ -669,7 +670,7 @@ export const Scan = () => {
                 </div>
 
                 {qrFileName && (
-                  <div className="p-2.5 bg-primary/40 rounded-xl border border-muted/20 text-xs flex justify-between items-center">
+                  <div className="p-3 bg-primary/45 rounded-xl border border-muted/20 text-xs flex justify-between items-center">
                     <span className="text-muted truncate mr-2">Loaded file:</span>
                     <span className="font-semibold text-accent font-mono truncate max-w-[200px]">{qrFileName}</span>
                   </div>
@@ -678,28 +679,39 @@ export const Scan = () => {
 
               <button
                 onClick={handleFileUploadScan}
-                className="w-full flex items-center justify-center space-x-2 py-3 px-4 rounded-xl border border-accent text-accent hover:bg-accent/10 font-bold text-sm tracking-wide transition-colors cursor-pointer"
+                className="w-full flex items-center justify-center space-x-2 py-3.5 px-4 rounded-xl border border-accent text-accent hover:bg-accent/10 font-bold text-sm tracking-wide transition-all cursor-pointer"
                 id="scan-qr-btn"
               >
-                <FiSearch className="w-4 h-4 font-bold" />
+                <FiSearch className="w-4.5 h-4.5 font-bold" />
                 <span>Decode & Scan QR file</span>
               </button>
-
             </div>
-          </section>
+          </motion.div>
         )}
 
         {/* Tab 3: Email Scan Form */}
         {activeTab === 'email' && (
-          <section className="bg-card dark:bg-card border border-muted/20 rounded-3xl p-6 sm:p-8 space-y-6 shadow-md">
+          <motion.div
+            initial={{ opacity: 0, y: 15, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.35 }}
+            className="bg-card dark:bg-card/45 backdrop-blur-xl border border-muted/20 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 w-48 h-48 bg-accent/5 rounded-full filter blur-3xl pointer-events-none" />
+            
             <div className="flex items-center space-x-3 text-accent border-b border-muted/5 pb-4">
-              <FiMail className="w-6 h-6" />
-              <h2 className="text-xl font-bold text-[#0d1b2a] dark:text-white">Email Phishing Sandbox</h2>
+              <div className="p-2.5 bg-accent/10 rounded-xl text-accent">
+                <FiMail className="w-5 h-5" />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-[#0d1b2a] dark:text-white">Email Phishing Sandbox</h2>
+                <p className="text-xs text-muted">Checks headers, semantic pressure tactics, and link spoofing.</p>
+              </div>
             </div>
             
             <form onSubmit={handleMailScanSubmit} className="space-y-4">
               <div className="space-y-1">
-                <label htmlFor="mail-sender-input" className="text-xs font-extrabold uppercase tracking-wide text-muted">
+                <label htmlFor="mail-sender-input" className="text-[10px] font-extrabold uppercase tracking-widest text-muted">
                   ✉️ Sender Address
                 </label>
                 <input
@@ -708,12 +720,12 @@ export const Scan = () => {
                   placeholder="e.g. billing-support@paypal-security.com"
                   value={mailSender}
                   onChange={(e) => setMailSender(e.target.value)}
-                  className="w-full bg-primary/30 border border-muted/30 focus:border-accent rounded-xl px-4 py-3 text-sm text-[#0d1b2a] dark:text-white placeholder-muted/50 focus:outline-none transition-colors"
+                  className="w-full bg-primary/30 hover:bg-primary/45 border border-muted/30 focus:border-accent focus:ring-2 focus:ring-accent/10 rounded-xl px-4 py-3.5 text-sm text-[#0d1b2a] dark:text-white placeholder-muted/50 focus:outline-none transition-all"
                 />
               </div>
               
               <div className="space-y-1">
-                <label htmlFor="mail-subject-input" className="text-xs font-extrabold uppercase tracking-wide text-muted">
+                <label htmlFor="mail-subject-input" className="text-[10px] font-extrabold uppercase tracking-widest text-muted">
                   📝 Subject Line
                 </label>
                 <input
@@ -722,12 +734,12 @@ export const Scan = () => {
                   placeholder="e.g. ACTION REQUIRED: Reset your credentials"
                   value={mailSubject}
                   onChange={(e) => setMailSubject(e.target.value)}
-                  className="w-full bg-primary/30 border border-muted/30 focus:border-accent rounded-xl px-4 py-3 text-sm text-[#0d1b2a] dark:text-white placeholder-muted/50 focus:outline-none transition-colors"
+                  className="w-full bg-primary/30 hover:bg-primary/45 border border-muted/30 focus:border-accent focus:ring-2 focus:ring-accent/10 rounded-xl px-4 py-3.5 text-sm text-[#0d1b2a] dark:text-white placeholder-muted/50 focus:outline-none transition-all"
                 />
               </div>
               
               <div className="space-y-1">
-                <label htmlFor="mail-body-input" className="text-xs font-extrabold uppercase tracking-wide text-muted">
+                <label htmlFor="mail-body-input" className="text-[10px] font-extrabold uppercase tracking-widest text-muted">
                   📄 Email Content (Body)
                 </label>
                 <textarea
@@ -736,42 +748,54 @@ export const Scan = () => {
                   placeholder="Paste the full text of the email here. E.g. Dear Customer, your account is suspended. Click here to reactivate: http://secure-paypal-login.tk"
                   value={mailBody}
                   onChange={(e) => setMailBody(e.target.value)}
-                  className="w-full bg-primary/30 border border-muted/30 focus:border-accent rounded-xl px-4 py-3 text-sm text-[#0d1b2a] dark:text-white placeholder-muted/50 focus:outline-none transition-colors font-sans resize-none"
+                  className="w-full bg-primary/30 hover:bg-primary/45 border border-muted/30 focus:border-accent focus:ring-2 focus:ring-accent/10 rounded-xl px-4 py-3 text-sm text-[#0d1b2a] dark:text-white placeholder-muted/50 focus:outline-none transition-all font-sans resize-none"
                 />
               </div>
               
               <button
                 type="submit"
-                className="w-full flex items-center justify-center space-x-2 py-3 px-4 rounded-xl bg-accent text-primary dark:text-primary font-bold text-sm tracking-wide hover:bg-accent/80 transition-colors shadow-lg shadow-accent/10 cursor-pointer mt-2"
+                className="w-full flex items-center justify-center space-x-2 py-3.5 px-4 rounded-xl bg-accent text-primary dark:text-primary font-bold text-sm tracking-wide hover:bg-accent/80 transition-all shadow-lg hover:shadow-accent/15 cursor-pointer mt-2"
                 id="scan-email-btn"
               >
-                <FiSearch className="w-4 h-4 font-bold" />
+                <FiSearch className="w-4.5 h-4.5 font-bold" />
                 <span>Analyze Email Security</span>
               </button>
             </form>
-          </section>
+          </motion.div>
         )}
 
         {/* Tab 4: Image Threat Scan Form */}
         {activeTab === 'image' && (
-          <section className="bg-card dark:bg-card border border-muted/20 rounded-3xl p-6 sm:p-8 space-y-6 shadow-md">
+          <motion.div
+            initial={{ opacity: 0, y: 15, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.35 }}
+            className="bg-card dark:bg-card/45 backdrop-blur-xl border border-muted/20 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 w-48 h-48 bg-accent/5 rounded-full filter blur-3xl pointer-events-none" />
+            
             <div className="flex items-center space-x-3 text-accent border-b border-muted/5 pb-4">
-              <FiCamera className="w-6 h-6" />
-              <h2 className="text-xl font-bold text-[#0d1b2a] dark:text-white">Image Threat Scanner</h2>
+              <div className="p-2.5 bg-accent/10 rounded-xl text-accent">
+                <FiCamera className="w-5 h-5" />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-[#0d1b2a] dark:text-white">Image Threat Scanner</h2>
+                <p className="text-xs text-muted">Audits EXIF metadata tags and trailing steganographic bytes.</p>
+              </div>
             </div>
             
             <form onSubmit={handleImageScanSubmit} className="space-y-5">
               
               {/* Drag and Drop Box */}
               <div className="space-y-2">
-                <label className="text-xs font-extrabold uppercase tracking-wide text-muted">
-                  📷 Upload standard Image file
+                <label className="text-[10px] font-extrabold uppercase tracking-widest text-muted">
+                  📁 Upload standard Image file
                 </label>
                 <div
                   onDragOver={(e) => e.preventDefault()}
                   onDrop={handleImageScanDrop}
                   onClick={() => imageInputRef.current?.click()}
-                  className="border-2 border-dashed border-muted/30 hover:border-accent/40 rounded-2xl p-8 flex flex-col items-center justify-center text-center cursor-pointer bg-primary/10 transition-colors"
+                  className="border-2 border-dashed border-muted/30 hover:border-accent/40 rounded-2xl p-8 flex flex-col items-center justify-center text-center cursor-pointer bg-primary/10 hover:bg-primary/20 transition-all"
                   id="image-scan-dropzone"
                 >
                   <input
@@ -781,7 +805,7 @@ export const Scan = () => {
                     onChange={handleImageScanChange}
                     className="hidden"
                   />
-                  <FiUploadCloud className="w-12 h-12 text-muted mb-2" />
+                  <FiUploadCloud className="w-12 h-12 text-muted mb-2 transition-transform duration-300 hover:scale-105" />
                   <p className="text-xs font-semibold text-muted">
                     Drag & drop your image here, or <span className="text-accent underline">browse</span>
                   </p>
@@ -789,7 +813,7 @@ export const Scan = () => {
                 </div>
 
                 {imageFileName && (
-                  <div className="p-3 bg-primary/40 rounded-xl border border-muted/20 text-xs flex justify-between items-center">
+                  <div className="p-3 bg-primary/45 rounded-xl border border-muted/20 text-xs flex justify-between items-center">
                     <span className="text-muted truncate mr-2">Loaded file:</span>
                     <span className="font-semibold text-accent font-mono truncate max-w-[300px]">{imageFileName}</span>
                   </div>
@@ -798,36 +822,48 @@ export const Scan = () => {
 
               <button
                 type="submit"
-                className="w-full flex items-center justify-center space-x-2 py-3 px-4 rounded-xl bg-accent text-primary dark:text-primary font-bold text-sm tracking-wide hover:bg-accent/80 transition-colors shadow-lg shadow-accent/10 cursor-pointer mt-2"
+                className="w-full flex items-center justify-center space-x-2 py-3.5 px-4 rounded-xl bg-accent text-primary dark:text-primary font-bold text-sm tracking-wide hover:bg-accent/80 transition-all shadow-lg hover:shadow-accent/15 cursor-pointer mt-2"
                 id="scan-image-file-btn"
               >
-                <FiSearch className="w-4 h-4 font-bold" />
+                <FiSearch className="w-4.5 h-4.5 font-bold" />
                 <span>Upload & Scan Image</span>
               </button>
             </form>
-          </section>
+          </motion.div>
         )}
 
         {/* Tab 5: APK Threat Scan Form */}
         {activeTab === 'apk' && (
-          <section className="bg-card dark:bg-card border border-muted/20 rounded-3xl p-6 sm:p-8 space-y-6 shadow-md">
+          <motion.div
+            initial={{ opacity: 0, y: 15, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.35 }}
+            className="bg-card dark:bg-card/45 backdrop-blur-xl border border-muted/20 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 w-48 h-48 bg-accent/5 rounded-full filter blur-3xl pointer-events-none" />
+            
             <div className="flex items-center space-x-3 text-accent border-b border-muted/5 pb-4">
-              <FiFileText className="w-6 h-6" />
-              <h2 className="text-xl font-bold text-[#0d1b2a] dark:text-white">APK Sandbox Scanner</h2>
+              <div className="p-2.5 bg-accent/10 rounded-xl text-accent">
+                <FiFileText className="w-5 h-5" />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-[#0d1b2a] dark:text-white">APK Sandbox Scanner</h2>
+                <p className="text-xs text-muted">Inspects classes.dex strings and AndroidManifest permissions.</p>
+              </div>
             </div>
             
             <form onSubmit={handleApkScanSubmit} className="space-y-5">
               
               {/* Drag and Drop Box */}
               <div className="space-y-2">
-                <label className="text-xs font-extrabold uppercase tracking-wide text-muted">
+                <label className="text-[10px] font-extrabold uppercase tracking-widest text-muted">
                   📁 Upload Android APK package file
                 </label>
                 <div
                   onDragOver={(e) => e.preventDefault()}
                   onDrop={handleApkScanDrop}
                   onClick={() => apkInputRef.current?.click()}
-                  className="border-2 border-dashed border-muted/30 hover:border-accent/40 rounded-2xl p-8 flex flex-col items-center justify-center text-center cursor-pointer bg-primary/10 transition-colors"
+                  className="border-2 border-dashed border-muted/30 hover:border-accent/40 rounded-2xl p-8 flex flex-col items-center justify-center text-center cursor-pointer bg-primary/10 hover:bg-primary/20 transition-all"
                   id="apk-scan-dropzone"
                 >
                   <input
@@ -837,7 +873,7 @@ export const Scan = () => {
                     onChange={handleApkScanChange}
                     className="hidden"
                   />
-                  <FiUploadCloud className="w-12 h-12 text-muted mb-2" />
+                  <FiUploadCloud className="w-12 h-12 text-muted mb-2 transition-transform duration-300 hover:scale-105" />
                   <p className="text-xs font-semibold text-muted">
                     Drag & drop your APK file here, or <span className="text-accent underline">browse</span>
                   </p>
@@ -845,7 +881,7 @@ export const Scan = () => {
                 </div>
 
                 {apkFileName && (
-                  <div className="p-3 bg-primary/40 rounded-xl border border-muted/20 text-xs flex justify-between items-center">
+                  <div className="p-3 bg-primary/45 rounded-xl border border-muted/20 text-xs flex justify-between items-center">
                     <span className="text-muted truncate mr-2">Loaded file:</span>
                     <span className="font-semibold text-accent font-mono truncate max-w-[300px]">{apkFileName}</span>
                   </div>
@@ -854,14 +890,14 @@ export const Scan = () => {
 
               <button
                 type="submit"
-                className="w-full flex items-center justify-center space-x-2 py-3 px-4 rounded-xl bg-accent text-primary dark:text-primary font-bold text-sm tracking-wide hover:bg-accent/80 transition-colors shadow-lg shadow-accent/10 cursor-pointer mt-2"
+                className="w-full flex items-center justify-center space-x-2 py-3.5 px-4 rounded-xl bg-accent text-primary dark:text-primary font-bold text-sm tracking-wide hover:bg-accent/80 transition-all shadow-lg hover:shadow-accent/15 cursor-pointer mt-2"
                 id="scan-apk-file-btn"
               >
-                <FiSearch className="w-4 h-4 font-bold" />
+                <FiSearch className="w-4.5 h-4.5 font-bold" />
                 <span>Upload & Scan APK</span>
               </button>
             </form>
-          </section>
+          </motion.div>
         )}
 
       </div>
