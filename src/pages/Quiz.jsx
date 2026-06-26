@@ -33,6 +33,38 @@ const QUESTIONS = [
       { text: "Ignore it and purchase parking only from the official terminal or app.", risk: 0, feedback: "Correct! Always pay through official domains or apps instead of scanning random codes." },
       { text: "Scan it to check the link destination but enter no payment details.", risk: 10, feedback: "Medium Risk. Just scanning can expose your browser version or trigger automated download scripts." }
     ]
+  },
+  {
+    question: "You download an image file (.png) from an unknown contact. Is it safe to open?",
+    options: [
+      { text: "Yes, standard image files cannot contain executable code or hidden security threats.", risk: 20, feedback: "High Risk! Images can contain steganographic payloads (like hidden URLs or malware bytes) appended to their binary stream." },
+      { text: "Yes, but I should scan it using a metadata/stego check tool to see if there are appended links or hidden headers.", risk: 0, feedback: "Correct! Steganographic tools can identify hidden URL redirect layers in file metadata or appended trailing bytes." },
+      { text: "Yes, provided my anti-virus software does not flag the image file.", risk: 10, feedback: "Medium Risk. Anti-virus databases often miss customized trailing byte URL payloads that don't match known malware signatures." }
+    ]
+  },
+  {
+    question: "A friend sends a message containing a shortened URL (e.g., bit.ly/3xY7z). How do you proceed?",
+    options: [
+      { text: "Click it immediately since it came from a trusted friend's account.", risk: 25, feedback: "High Risk! Your friend's account could be compromised, or their device infected with an automated worm." },
+      { text: "Use a URL expander or scanner tool to reveal the destination domain before visiting.", risk: 0, feedback: "Correct! Expanding shortened URLs lets you inspect the full redirect path safely." },
+      { text: "Click it only if I am browsing on a phone, as mobile browsers are less vulnerable.", risk: 15, feedback: "Medium Risk. Mobile devices are just as vulnerable to browser exploits and credential harvesting." }
+    ]
+  },
+  {
+    question: "You notice a site URL is 'https://www.paypal-secure.com'. Is this official?",
+    options: [
+      { text: "Yes, it has 'paypal' in the domain and uses a secure HTTPS connection.", risk: 25, feedback: "High Risk! The primary domain is 'paypal-secure.com', not 'paypal.com'. Scammers register subdomains or combined names to spoof brands." },
+      { text: "No, the official domain is 'paypal.com'. This is a compound domain likely registered by a scammer.", risk: 0, feedback: "Correct! Brand names combined with other words are classic phishing indicators." },
+      { text: "Yes, if the security padlock shows that the certificate is valid.", risk: 20, feedback: "High Risk! Valid SSL certificates can be easily obtained for free by scammers for any domain they own." }
+    ]
+  },
+  {
+    question: "Your browser alerts you that an update is available. Why is it important to install it?",
+    options: [
+      { text: "Mainly for cosmetic design updates; it doesn't affect security checks.", risk: 20, feedback: "High Risk! Browser updates frequently patch critical zero-day vulnerabilities used by malicious sites to run drive-by downloads." },
+      { text: "To patch zero-day execution flaws and sandbox escape vulnerabilities.", risk: 0, feedback: "Correct! Keeping your browser up-to-date is a crucial defense against exploit kits hosted on malicious sites." },
+      { text: "I'll update it next month; browser security features rarely change.", risk: 15, feedback: "Medium Risk. Delaying patches leaves your system exposed to active exploits that security databases might not block yet." }
+    ]
   }
 ]
 
