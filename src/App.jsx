@@ -1,8 +1,7 @@
 import React, { useContext } from 'react'
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { AnimatePresence } from 'framer-motion'
 
 import { ThemeContext } from './context/ThemeContext'
 import Navbar from './components/Navbar'
@@ -23,7 +22,6 @@ import Quiz from './pages/Quiz'
 
 const AppContent = () => {
   const { theme } = useContext(ThemeContext)
-  const location = useLocation()
 
   return (
     <div className="flex flex-col min-h-screen w-full text-[#0d1b2a] dark:text-white bg-primary grid-bg relative overflow-hidden">
@@ -39,19 +37,17 @@ const AppContent = () => {
 
       {/* Dynamic Route Pages Container */}
       <main className="flex-grow relative z-10 pt-16 sm:pt-20">
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<PageTransition><Home /></PageTransition>} />
-            <Route path="/scan" element={<PageTransition><Scan /></PageTransition>} />
-            <Route path="/result" element={<PageTransition><Result /></PageTransition>} />
-            <Route path="/result-mail" element={<PageTransition><ResultMail /></PageTransition>} />
-            <Route path="/result-file" element={<PageTransition><ResultFile /></PageTransition>} />
-            <Route path="/how-it-works" element={<PageTransition><HowItWorks /></PageTransition>} />
-            <Route path="/about" element={<PageTransition><About /></PageTransition>} />
-            <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
-            <Route path="/quiz" element={<PageTransition><Quiz /></PageTransition>} />
-          </Routes>
-        </AnimatePresence>
+        <Routes>
+          <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+          <Route path="/scan" element={<PageTransition><Scan /></PageTransition>} />
+          <Route path="/result" element={<PageTransition><Result /></PageTransition>} />
+          <Route path="/result-mail" element={<PageTransition><ResultMail /></PageTransition>} />
+          <Route path="/result-file" element={<PageTransition><ResultFile /></PageTransition>} />
+          <Route path="/how-it-works" element={<PageTransition><HowItWorks /></PageTransition>} />
+          <Route path="/about" element={<PageTransition><About /></PageTransition>} />
+          <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+          <Route path="/quiz" element={<PageTransition><Quiz /></PageTransition>} />
+        </Routes>
       </main>
 
       {/* Global footer details */}
