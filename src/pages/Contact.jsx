@@ -171,7 +171,7 @@ export const Contact = () => {
             </div>
           </section>
 
-          {/* Response Time */}
+          {/* Response Time
           <section className="bg-card/65 dark:bg-card/45 border border-muted/20 dark:border-accent/10 rounded-3xl p-5 flex items-center justify-between shadow-xl">
             <div className="flex items-center space-x-3">
               <FiClock className="w-5 h-5 text-accent" />
@@ -180,7 +180,7 @@ export const Contact = () => {
             <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-accent/10 text-accent uppercase tracking-wider">
               Within 24 Hours
             </span>
-          </section>
+          </section> */}
 
           {/* Quick Links */}
           <section className="bg-card/65 dark:bg-card/45 border border-muted/20 dark:border-accent/10 rounded-3xl p-6 space-y-4 shadow-xl text-left">
