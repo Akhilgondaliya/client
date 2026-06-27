@@ -171,17 +171,6 @@ export const Contact = () => {
             </div>
           </section>
 
-          {/* Response Time
-          <section className="bg-card/65 dark:bg-card/45 border border-muted/20 dark:border-accent/10 rounded-3xl p-5 flex items-center justify-between shadow-xl">
-            <div className="flex items-center space-x-3">
-              <FiClock className="w-5 h-5 text-accent" />
-              <span className="text-xs font-bold text-muted">Average Reply Time</span>
-            </div>
-            <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-accent/10 text-accent uppercase tracking-wider">
-              Within 24 Hours
-            </span>
-          </section> */}
-
           {/* Quick Links */}
           <section className="bg-card/65 dark:bg-card/45 border border-muted/20 dark:border-accent/10 rounded-3xl p-6 space-y-4 shadow-xl text-left">
             <h3 className="text-sm font-extrabold uppercase tracking-widest text-[#0d1b2a] dark:text-white">Quick Links</h3>
@@ -218,7 +207,7 @@ export const Contact = () => {
           <section className="bg-card/65 dark:bg-card/45 border border-muted/20 dark:border-accent/10 rounded-3xl p-6 sm:p-8 space-y-4 shadow-xl text-left">
             <h2 className="text-xl font-bold text-[#0d1b2a] dark:text-white">Let's Collaborate</h2>
             <p className="text-sm text-muted leading-relaxed font-semibold">
-              I'm always open to discussing cybersecurity, software development, internships, open-source contributions, research, and innovative project ideas.
+              I'm always open to discussing cybersecurity, internships, open-source contributions, research, and innovative project ideas.
             </p>
           </section>
 
