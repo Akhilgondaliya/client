@@ -420,6 +420,15 @@ export const Result = () => {
             )}
           </div>
         </div>
+
+        {previewMode === "sandbox" && (
+          <div className="flex items-start space-x-2.5 p-3.5 bg-amber-500/10 border border-amber-500/20 text-amber-500 rounded-xl text-xs text-left">
+            <FiAlertTriangle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+            <p className="leading-relaxed font-semibold">
+              <b>Notice:</b> If the frame displays a "refused to connect" error, this website is blocking cross-origin embedding via security headers (<code>X-Frame-Options</code>). Switch to the <b>Safe Capture (Screenshot)</b> tab above to view the website screenshot.
+            </p>
+          </div>
+        )}
       </section>
 
       {/* Zone slide indicator progress ruler */}
