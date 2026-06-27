@@ -152,7 +152,7 @@ export const Quiz = () => {
               <div className="space-y-2">
                 <h3 className="text-xl font-bold text-[#0d1b2a] dark:text-white">Is Your Browsing Vulnerable to Cyber Threat Scams?</h3>
                 <p className="text-sm text-muted max-w-md mx-auto leading-relaxed">
-                  Scammers use sophisticated psychological tactics to target victims. Take our 4-question threat scenario quiz to discover your vulnerability index.
+                  Scammers use sophisticated psychological tactics to target victims. Take our 8-question threat scenario quiz to discover your vulnerability index.
                 </p>
               </div>
               <button
