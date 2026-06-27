@@ -52,7 +52,7 @@ export const Navbar = () => {
       <header
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b ${
           scrolled
-            ? 'bg-card/65 dark:bg-card/45 backdrop-blur-lg shadow-lg border-muted/10 dark:border-accent/10'
+            ? 'bg-card/50 dark:bg-card/30 backdrop-blur-lg shadow-lg border-muted/10 dark:border-accent/10'
             : 'bg-transparent border-transparent'
         }`}
       >
