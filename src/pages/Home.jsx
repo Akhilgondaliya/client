@@ -83,7 +83,7 @@ export const Home = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.65, delay: 0.35, ease: 'easeOut' }}
-                className="block mt-2 sm:mt-4 text-[#00d4ff] dark:text-[#00d4ff]"
+                className="block mt-2 sm:mt-4 text-accent"
               >
                 <span className="text-[#0d1b2a] dark:text-white">Phish</span>Zero<span className="text-[#0d1b2a] dark:text-white"> Finds Them.</span>
               </motion.span>

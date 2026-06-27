@@ -9,7 +9,7 @@ export const ThemeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-lg bg-card border border-muted/20 hover:border-accent/50 hover:bg-card/80 text-accent transition-all duration-300 focus:outline-none flex items-center justify-center cursor-pointer"
+      className="p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#00d4ff]/40 text-[#00d4ff] transition-all duration-300 focus:outline-none flex items-center justify-center cursor-pointer shadow-md shadow-black/10"
       title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
       id="theme-toggle-btn"
     >
@@ -22,9 +22,9 @@ export const ThemeToggle = () => {
           transition={{ duration: 0.25 }}
         >
           {theme === 'dark' ? (
-            <FiSun className="w-5 h-5 text-accent" />
+            <FiSun className="w-5 h-5 text-[#00d4ff]" />
           ) : (
-            <FiMoon className="w-5 h-5 text-[#0077bb]" />
+            <FiMoon className="w-5 h-5 text-[#00d4ff]" />
           )}
         </motion.div>
       </AnimatePresence>
