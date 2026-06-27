@@ -85,7 +85,16 @@ export const Home = () => {
                 transition={{ duration: 0.65, delay: 0.35, ease: 'easeOut' }}
                 className="block mt-2 sm:mt-4 text-[#00d4ff] dark:text-[#00d4ff]"
               >
-                <span className="text-[#0d1b2a] dark:text-white">Phish</span>Zero<span className="text-[#0d1b2a] dark:text-white"> Finds Them.</span>
+                <motion.span
+                  animate={{ 
+                    scale: [1, 1.05, 1]
+                  }}
+                  transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
+                  className="inline-block cursor-default font-black"
+                >
+                  <span className="text-[#0d1b2a] dark:text-white">Phish</span>Zero
+                </motion.span>
+                <span className="text-[#0d1b2a] dark:text-white"> Finds Them.</span>
               </motion.span>
             </h1>
             
