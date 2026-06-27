@@ -325,67 +325,6 @@ export const Result = () => {
         </div>
       </div>
 
-      {/* Zone slide indicator progress ruler */}
-      <section className="bg-card/65 dark:bg-card/45 backdrop-blur-md border border-muted/20 dark:border-accent/10 rounded-3xl p-6 sm:p-8 space-y-4 shadow-md">
-        <h3 className="text-sm font-extrabold uppercase tracking-wider text-muted">
-          Safety Threat Level
-        </h3>
-
-        {/* Horizontal ruler tracking box */}
-        <div className="relative pt-6 pb-2">
-          {/* Active pointer block */}
-          <motion.div
-            initial={{ left: 0 }}
-            animate={{ left: `${score}%` }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="absolute top-0 -translate-x-1/2 flex flex-col items-center z-10"
-          >
-            <span
-              className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold text-primary dark:text-primary ${scoreBgColor}`}
-            >
-              {score}
-            </span>
-            <div className={`w-2 h-2 rotate-45 mt-0.5 ${scoreBgColor}`} />
-          </motion.div>
-
-          {/* Three-zone background bar */}
-          <div className="h-4 w-full rounded-full overflow-hidden flex bg-primary/20">
-            <div
-              className="w-[40%] bg-emerald-500/20 border-r border-[#060b14] h-full"
-              title="Safe Range"
-            />
-            <div
-              className="w-[30%] bg-amber-500/20 border-r border-[#060b14] h-full"
-              title="Suspicious Range"
-            />
-            <div
-              className="w-[30%] bg-rose-500/20 h-full"
-              title="Dangerous Range"
-            />
-          </div>
-
-          {/* Legend indicator marks */}
-          <div className="flex justify-between text-[10px] text-muted font-bold tracking-wider pt-2">
-            <span>0 (Safe)</span>
-            <span className="text-emerald-500">39 (Upper Safe Limit)</span>
-            <span className="text-amber-500">69 (Upper Suspicious Limit)</span>
-            <span className="text-rose-500">100 (Max Danger Rating)</span>
-          </div>
-        </div>
-      </section>
-
-      {/* Detection Pipeline progression */}
-      <DetectionPipeline />
-
-      {/* URL Diagnostics Breakdown Cards */}
-      <UrlBreakdown
-        url={url}
-        ipAddress={ip_address}
-        registrar={whois.registrar}
-        whoisError={whois.error}
-        sslError={ssl.error}
-      />
-
       {/* Secure Website Preview Section */}
       <section className="bg-card/65 dark:bg-card/45 backdrop-blur-md border border-muted/20 dark:border-accent/10 rounded-3xl p-6 sm:p-8 space-y-6 shadow-md hover:border-accent/30 transition-colors">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-muted/5 pb-4">
@@ -482,6 +421,67 @@ export const Result = () => {
           </div>
         </div>
       </section>
+
+      {/* Zone slide indicator progress ruler */}
+      <section className="bg-card/65 dark:bg-card/45 backdrop-blur-md border border-muted/20 dark:border-accent/10 rounded-3xl p-6 sm:p-8 space-y-4 shadow-md">
+        <h3 className="text-sm font-extrabold uppercase tracking-wider text-muted">
+          Safety Threat Level
+        </h3>
+
+        {/* Horizontal ruler tracking box */}
+        <div className="relative pt-6 pb-2">
+          {/* Active pointer block */}
+          <motion.div
+            initial={{ left: 0 }}
+            animate={{ left: `${score}%` }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="absolute top-0 -translate-x-1/2 flex flex-col items-center z-10"
+          >
+            <span
+              className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold text-primary dark:text-primary ${scoreBgColor}`}
+            >
+              {score}
+            </span>
+            <div className={`w-2 h-2 rotate-45 mt-0.5 ${scoreBgColor}`} />
+          </motion.div>
+
+          {/* Three-zone background bar */}
+          <div className="h-4 w-full rounded-full overflow-hidden flex bg-primary/20">
+            <div
+              className="w-[40%] bg-emerald-500/20 border-r border-[#060b14] h-full"
+              title="Safe Range"
+            />
+            <div
+              className="w-[30%] bg-amber-500/20 border-r border-[#060b14] h-full"
+              title="Suspicious Range"
+            />
+            <div
+              className="w-[30%] bg-rose-500/20 h-full"
+              title="Dangerous Range"
+            />
+          </div>
+
+          {/* Legend indicator marks */}
+          <div className="flex justify-between text-[10px] text-muted font-bold tracking-wider pt-2">
+            <span>0 (Safe)</span>
+            <span className="text-emerald-500">39 (Upper Safe Limit)</span>
+            <span className="text-amber-500">69 (Upper Suspicious Limit)</span>
+            <span className="text-rose-500">100 (Max Danger Rating)</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Detection Pipeline progression */}
+      <DetectionPipeline />
+
+      {/* URL Diagnostics Breakdown Cards */}
+      <UrlBreakdown
+        url={url}
+        ipAddress={ip_address}
+        registrar={whois.registrar}
+        whoisError={whois.error}
+        sslError={ssl.error}
+      />
 
       {/* SSL & WHOIS Details Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
