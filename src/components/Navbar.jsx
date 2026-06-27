@@ -61,9 +61,9 @@ export const Navbar = () => {
             
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2 group focus:outline-none" id="navbar-logo">
-              <FiShield className="w-6 h-6 text-[#00d4ff] transition-transform duration-300 group-hover:scale-110" />
+              <FiShield className="w-6 h-6 text-accent transition-transform duration-300 group-hover:scale-110" />
               <span className="text-xl font-extrabold tracking-tight text-white">
-                Phish<span className="text-[#00d4ff]">Zero</span>
+                Phish<span className="text-accent">Zero</span>
               </span>
             </Link>
   
@@ -76,8 +76,8 @@ export const Navbar = () => {
                   className={({ isActive }) =>
                     `relative py-2 text-sm font-semibold tracking-wide transition-colors duration-300 ${
                       isActive
-                        ? 'text-[#00d4ff] font-bold'
-                        : 'text-gray-300 hover:text-[#00d4ff]'
+                        ? 'text-accent font-bold'
+                        : 'text-gray-300 hover:text-accent'
                     }`
                   }
                 >
@@ -85,7 +85,7 @@ export const Navbar = () => {
                     <>
                       {link.name}
                       {isActive && (
-                        <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#00d4ff] rounded-full" />
+                        <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-accent rounded-full" />
                       )}
                     </>
                   )}
@@ -98,7 +98,7 @@ export const Navbar = () => {
               {/* Action Call-to-Action */}
               <Link
                 to="/scan"
-                className="hidden lg:flex items-center space-x-1 px-4 py-2 rounded-xl bg-[#00d4ff] hover:bg-[#00d4ff]/80 text-slate-950 font-extrabold text-xs tracking-wider transition-all shadow-md shadow-[#00d4ff]/20 hover:scale-105 active:scale-95 cursor-pointer ml-2"
+                className="hidden lg:flex items-center space-x-1 px-4 py-2 rounded-xl bg-accent hover:bg-accent/80 text-slate-950 font-extrabold text-xs tracking-wider transition-all shadow-md shadow-accent/20 hover:scale-105 active:scale-95 cursor-pointer ml-2"
               >
                 <span>Try Now</span>
                 <span className="font-sans">→</span>
@@ -110,7 +110,7 @@ export const Navbar = () => {
               <ThemeToggle />
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="p-2 text-gray-300 hover:text-[#00d4ff] focus:outline-none cursor-pointer"
+                className="p-2 text-gray-300 hover:text-accent focus:outline-none cursor-pointer"
                 aria-label="Toggle Menu"
               >
                 {isOpen ? <FiX className="w-6 h-6" /> : <FiMenu className="w-6 h-6" />}
@@ -131,7 +131,7 @@ export const Navbar = () => {
                 to={link.path}
                 className={({ isActive }) =>
                   `text-lg font-bold py-2 border-b border-muted/10 transition-colors duration-300 ${
-                    isActive ? 'text-[#00d4ff] border-[#00d4ff]/20' : 'text-gray-300 hover:text-[#00d4ff]'
+                    isActive ? 'text-accent border-accent/20' : 'text-gray-300 hover:text-accent'
                   }`
                 }
               >
@@ -141,7 +141,7 @@ export const Navbar = () => {
             
             <Link
               to="/scan"
-              className="flex items-center justify-center space-x-1.5 py-3.5 px-4 rounded-xl bg-[#00d4ff] hover:bg-[#00d4ff]/80 text-slate-950 font-extrabold text-sm tracking-wider transition-all text-center mt-4 shadow-lg shadow-[#00d4ff]/15"
+              className="flex items-center justify-center space-x-1.5 py-3.5 px-4 rounded-xl bg-accent hover:bg-accent/80 text-slate-950 font-extrabold text-sm tracking-wider transition-all text-center mt-4 shadow-lg shadow-accent/15"
             >
               <span>Try Now</span>
               <span className="font-sans">→</span>
