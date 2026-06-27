@@ -52,8 +52,8 @@ export const Navbar = () => {
       <header
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b ${
           scrolled
-            ? 'bg-nav/95 backdrop-blur-md shadow-lg border-muted/20'
-            : 'bg-nav/50 border-muted/10'
+            ? 'bg-[#0f172a]/90 backdrop-blur-md shadow-lg border-white/10'
+            : 'bg-[#0f172a]/40 backdrop-blur-sm border-white/5'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -123,7 +123,7 @@ export const Navbar = () => {
   
       {/* Mobile Drawer Overlay */}
       {isOpen && (
-        <div className="md:hidden fixed inset-0 top-16 sm:top-20 bg-nav/95 backdrop-blur-xl z-40 transition-all duration-300 border-t border-muted/10">
+        <div className="md:hidden fixed inset-0 top-16 sm:top-20 bg-[#0f172a]/95 backdrop-blur-xl z-40 transition-all duration-300 border-t border-white/10">
           <nav className="flex flex-col space-y-4 px-6 pt-8 pb-10">
             {links.map((link) => (
               <NavLink
